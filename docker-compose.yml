@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  postgres_db:
+    image: postgres
+    volumes: 
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=todo_list
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  todo_list_django:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_NAME=todo_list
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_HOST=postgres_db
+    depends_on:
+     - postgres_db
