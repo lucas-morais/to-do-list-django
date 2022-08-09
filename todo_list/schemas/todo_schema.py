@@ -17,4 +17,4 @@ class TodoDTO(ModelSchema):
 class TodoForm(ModelSchema):
     class Config:
         model = Todo
-        model_fields = ["description", "finished", "category"]
+        model_fields = ["description", "category"]
