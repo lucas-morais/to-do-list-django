@@ -1,5 +1,6 @@
-from ninja import ModelSchema
+from ninja import ModelSchema, Schema
 from ..models.todo_models import Todo
+from typing import Literal
 
 
 class TodoDTO(ModelSchema):
@@ -14,7 +15,6 @@ class TodoDTO(ModelSchema):
         ]
 
 
-class TodoForm(ModelSchema):
-    class Config:
-        model = Todo
-        model_fields = ["description", "category"]
+class TodoForm(Schema):
+    description: str
+    category: Literal["W", "L"]
