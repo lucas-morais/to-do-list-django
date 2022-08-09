@@ -12,3 +12,6 @@ class Todo(models.Model):
         max_length=1, choices=CATEGORY, null=False, blank=False, default="L"
     )
     created_at = models.DateField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.description
