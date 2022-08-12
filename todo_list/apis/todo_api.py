@@ -1,6 +1,6 @@
 from ninja import Router
 from django.shortcuts import get_object_or_404
-from ..schemas.todo_schema import TodoDTO, TodoForm
+from ..schemas.todo_schema import TodoDTO, TodoForm, TodoUpdateForm
 from ..models.todo_models import Todo
 from typing import List
 
@@ -27,5 +27,10 @@ def list_by_id(_request, id: str):
 
 
 @router.put("/{str:id}", response=TodoDTO)
-def update(_request, id: str):
-    pass
+def update(_request, id: str, updateForm: TodoUpdateForm):
+    todo = get_object_or_404(Todo, id=id)
+    todo.category = updateForm.category
+    todo.description = updateForm.description
+    todo.finished = updateForm.finished
+    todo.save()
+    return todo
