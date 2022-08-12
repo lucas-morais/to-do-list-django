@@ -1,5 +1,6 @@
 from ninja import Router
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 from ..schemas.todo_schema import (
     TodoDTO,
     TodoFinishUpdateDTO,
@@ -49,4 +50,9 @@ def update_finished(_request, id: str):
     return {"finished": todo.finished}
 
 
-# @router.delete("/{str:id}", response=)
+@router.delete("/{str:id}")
+def delete(_request, response: HttpResponse, id: str):
+    todo = get_object_or_404(Todo, id=id)
+    todo.delete()
+    response.status_code = 204
+    return response
