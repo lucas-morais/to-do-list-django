@@ -1,4 +1,5 @@
 from ninja import Router
+from django.shortcuts import get_object_or_404
 from ..schemas.todo_schema import TodoDTO, TodoForm
 from ..models.todo_models import Todo
 from typing import List
@@ -16,4 +17,10 @@ def hello(_request):
 def create_todo(_request, todo_form: TodoForm):
     todo = Todo(**todo_form.dict())
     todo.save()
+    return todo
+
+
+@router.get("/{str:id}", response=TodoDTO)
+def list_by_id(_request, id: str):
+    todo = get_object_or_404(Todo, id=id)
     return todo
