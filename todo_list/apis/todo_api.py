@@ -1,6 +1,11 @@
 from ninja import Router
 from django.shortcuts import get_object_or_404
-from ..schemas.todo_schema import TodoDTO, TodoForm, TodoUpdateForm
+from ..schemas.todo_schema import (
+    TodoDTO,
+    TodoFinishUpdateDTO,
+    TodoForm,
+    TodoUpdateForm,
+)
 from ..models.todo_models import Todo
 from typing import List
 
@@ -34,3 +39,14 @@ def update(_request, id: str, updateForm: TodoUpdateForm):
     todo.finished = updateForm.finished
     todo.save()
     return todo
+
+
+@router.patch("/{str:id}", response=TodoFinishUpdateDTO)
+def update_finished(_request, id: str):
+    todo = get_object_or_404(Todo, id=id)
+    todo.finished = not todo.finished
+    todo.save()
+    return {"finished": todo.finished}
+
+
+# @router.delete("/{str:id}", response=)
