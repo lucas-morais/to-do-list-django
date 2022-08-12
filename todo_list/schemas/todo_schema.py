@@ -24,3 +24,7 @@ class TodoUpdateForm(Schema):
     description: str
     finished: bool
     category: Literal["W", "L"]
+
+
+class TodoFinishUpdateDTO(Schema):
+    finished: bool
