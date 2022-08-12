@@ -18,3 +18,9 @@ class TodoDTO(ModelSchema):
 class TodoForm(Schema):
     description: str
     category: Literal["W", "L"]
+
+
+class TodoUpdateForm(Schema):
+    description: str
+    finished: bool
+    category: Literal["W", "L"]
