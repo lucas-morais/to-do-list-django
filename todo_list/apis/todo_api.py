@@ -8,7 +8,7 @@ router = Router()
 
 
 @router.get("", response=List[TodoDTO])
-def hello(_request):
+def list_all(_request):
     todos = Todo.objects.all()
     return todos
 
@@ -24,3 +24,8 @@ def create_todo(_request, todo_form: TodoForm):
 def list_by_id(_request, id: str):
     todo = get_object_or_404(Todo, id=id)
     return todo
+
+
+@router.put("/{str:id}", response=TodoDTO)
+def update(_request, id: str):
+    pass
